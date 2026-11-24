@@ -10,9 +10,15 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+// Gate constraint (sealed scorer): entry.txt must be UTF-8 text of
+// 1–200 characters and not only whitespace. This line is 163 characters,
+// so it passes as-is — keep any future edit of the wording within that
+// budget or the entry is invalid before judging starts.
 const LINE =
   "My agent apologized six times, said \"Great question!\" twice, and confidently summarized a meeting it never attended — with action items for people who don't exist.";
 
+const ENTRY_FILE = "entry.txt";
+
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, "entry.txt"), LINE + "\n", "utf8");
+writeFileSync(join(outDir, ENTRY_FILE), LINE + "\n", "utf8");
